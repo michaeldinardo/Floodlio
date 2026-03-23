@@ -24,35 +24,39 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Database error' }, { status: 500 })
   }
 
-  // Send confirmation to the bar
-  await resend.emails.send({
-    from: 'Floodlio <waitlist@floodlio.com>',
-    to: email,
-    subject: "You're on the Floodlio waitlist!",
-    html: `
-      <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto;">
-        <h2>You're on the list! 🎉</h2>
-        <p>Hey${business_name ? ` ${business_name}` : ''},</p>
-        <p>Thanks for joining the Floodlio waitlist. We'll reach out as soon as bar accounts open up in${city ? ` ${city}` : ' your area'}.</p>
-        <p>— The Floodlio Team</p>
-      </div>
-    `,
-  })
+  try {
+    // Send confirmation to the bar
+    await resend.emails.send({
+      from: 'Floodlio <waitlist@floodlio.com>',
+      to: email,
+      subject: "You're on the Floodlio waitlist!",
+      html: `
+        <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto;">
+          <h2>You're on the list! 🎉</h2>
+          <p>Hey${business_name ? ` ${business_name}` : ''},</p>
+          <p>Thanks for joining the Floodlio waitlist. We'll reach out as soon as bar accounts open up in${city ? ` ${city}` : ' your area'}.</p>
+          <p>— The Floodlio Team</p>
+        </div>
+      `,
+    })
 
-  // Notify the owner
-  await resend.emails.send({
-    from: 'Floodlio <waitlist@floodlio.com>',
-    to: 'mjdautomationsolutions@gmail.com',
-    subject: `New waitlist signup: ${business_name || email}`,
-    html: `
-      <div style="font-family: sans-serif;">
-        <h3>New waitlist signup</h3>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Business:</strong> ${business_name || '—'}</p>
-        <p><strong>City:</strong> ${city || '—'}</p>
-      </div>
-    `,
-  })
+    // Notify the owner
+    await resend.emails.send({
+      from: 'Floodlio <waitlist@floodlio.com>',
+      to: 'mjdautomationsolutions@gmail.com',
+      subject: `New waitlist signup: ${business_name || email}`,
+      html: `
+        <div style="font-family: sans-serif;">
+          <h3>New waitlist signup</h3>
+          <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Business:</strong> ${business_name || '—'}</p>
+          <p><strong>City:</strong> ${city || '—'}</p>
+        </div>
+      `,
+    })
+  } catch (emailError) {
+    console.error('Email send failed:', emailError)
+  }
 
   return NextResponse.json({ success: true })
 }
