@@ -15,8 +15,9 @@ async function getBrandAndProducts(id: string) {
   return { brand, products: products || [] }
 }
 
-export default async function BrandPage({ params }: { params: { id: string } }) {
-  const { brand, products } = await getBrandAndProducts(params.id)
+export default async function BrandPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
+  const { brand, products } = await getBrandAndProducts(id)
   if (!brand) notFound()
 
   return (
