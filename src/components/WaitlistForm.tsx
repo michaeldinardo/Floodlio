@@ -1,6 +1,5 @@
 'use client'
 import { useState } from 'react'
-import { supabase } from '@/lib/supabase'
 import { Loader2, CheckCircle } from 'lucide-react'
 
 export default function WaitlistForm() {
@@ -17,20 +16,21 @@ export default function WaitlistForm() {
     setLoading(true)
     setError('')
 
-    const { error: err } = await supabase.from('waitlist').insert({
-      email,
-      business_name: businessName || null,
-      city: city || null,
+    const res = await fetch('/api/waitlist', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, business_name: businessName, city }),
     })
 
-    if (err) {
-      if (err.code === '23505') {
+    if (res.ok) {
+      setSuccess(true)
+    } else {
+      const data = await res.json()
+      if (data.error === 'already_on_list') {
         setError("You're already on the waitlist!")
       } else {
         setError('Something went wrong. Please try again.')
       }
-    } else {
-      setSuccess(true)
     }
 
     setLoading(false)
