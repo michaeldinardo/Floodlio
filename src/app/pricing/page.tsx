@@ -17,13 +17,13 @@ export default function PricingPage() {
   return (
     <div className="min-h-screen bg-[#0a0a0a]">
       <Navbar />
-      <div className="pt-24 pb-20 px-4 max-w-5xl mx-auto">
+      <div className="pt-24 pb-20 px-4 max-w-6xl mx-auto">
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Simple, Transparent Pricing</h1>
           <p className="text-gray-400 text-lg">One plan for brands. Always free for bars.</p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
           {/* Bar - Free */}
           <div className="card">
             <div className="text-center mb-8">
@@ -44,17 +44,14 @@ export default function PricingPage() {
             </Link>
           </div>
 
-          {/* Brand - $29/mo */}
-          <div className="relative card border-[#D4AF37]/50 bg-[#D4AF37]/5">
-            <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#D4AF37] text-black text-sm font-bold px-4 py-1 rounded-full">
-              Most Popular
-            </div>
+          {/* Brand Monthly */}
+          <div className="card border-[#D4AF37]/30">
             <div className="text-center mb-8">
               <h2 className="text-2xl font-bold mb-2">Brand</h2>
-              <div className="text-5xl font-bold mb-2">
-                $29<span className="text-xl text-gray-400">/mo</span>
+              <div className="text-5xl font-bold mb-1">
+                $49.99<span className="text-xl text-gray-400">/mo</span>
               </div>
-              <p className="text-gray-500">Everything you need to grow</p>
+              <p className="text-gray-500">Billed monthly</p>
             </div>
             <ul className="space-y-3 mb-8">
               {FEATURES.map(f => (
@@ -64,14 +61,40 @@ export default function PricingPage() {
                 </li>
               ))}
             </ul>
-            <Link href="/sign-up" className="btn-gold w-full text-center block">
-              Start Listing Products
+            <Link href="/api/stripe/checkout?plan=monthly" className="btn-outline-gold w-full text-center block">
+              Start Monthly
+            </Link>
+          </div>
+
+          {/* Brand Yearly */}
+          <div className="relative card border-[#D4AF37]/50 bg-[#D4AF37]/5">
+            <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#D4AF37] text-black text-sm font-bold px-4 py-1 rounded-full whitespace-nowrap">
+              Best Value — Save $150
+            </div>
+            <div className="text-center mb-8">
+              <h2 className="text-2xl font-bold mb-1">Brand</h2>
+              <div className="text-5xl font-bold mb-1">
+                $449.99<span className="text-xl text-gray-400">/yr</span>
+              </div>
+              <p className="text-[#D4AF37] text-sm font-medium">$37.50/mo — save $150 vs monthly</p>
+              <p className="text-gray-500 text-sm line-through mt-1">$599.88/yr if billed monthly</p>
+            </div>
+            <ul className="space-y-3 mb-8">
+              {FEATURES.map(f => (
+                <li key={f} className="flex items-center gap-3 text-gray-300">
+                  <Check size={18} className="text-[#D4AF37] flex-shrink-0" />
+                  {f}
+                </li>
+              ))}
+            </ul>
+            <Link href="/api/stripe/checkout?plan=yearly" className="btn-gold w-full text-center block">
+              Start Annual Plan
             </Link>
           </div>
         </div>
 
         <div className="text-center mt-12 text-gray-500">
-          <p>Cancel anytime. No contracts. Billed monthly.</p>
+          <p>Cancel anytime. No contracts.</p>
         </div>
       </div>
     </div>

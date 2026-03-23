@@ -54,8 +54,8 @@ export default function BrandDashboard({ user }: { user: User }) {
               <Plus size={18} /> Add Product
             </button>
           ) : (
-            <Link href="/api/stripe/checkout" className="btn-gold flex items-center gap-2">
-              <CreditCard size={18} /> Subscribe – $29/mo
+            <Link href="/pricing" className="btn-gold flex items-center gap-2">
+              <CreditCard size={18} /> Subscribe — View Plans
             </Link>
           )}
         </div>
@@ -81,9 +81,9 @@ export default function BrandDashboard({ user }: { user: User }) {
         <div className="card border-[#D4AF37]/50 bg-[#D4AF37]/5 mb-8 flex items-center justify-between">
           <div>
             <h3 className="font-semibold text-[#D4AF37]">Activate Your Subscription</h3>
-            <p className="text-gray-400 text-sm mt-1">Subscribe for $29/mo to list products and receive bar requests.</p>
+            <p className="text-gray-400 text-sm mt-1">Subscribe from $49.99/mo to list products and receive bar requests.</p>
           </div>
-          <Link href="/api/stripe/checkout" className="btn-gold flex-shrink-0">Subscribe Now</Link>
+          <Link href="/pricing" className="btn-gold flex-shrink-0">View Plans</Link>
         </div>
       )}
 
