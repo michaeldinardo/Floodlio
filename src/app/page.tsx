@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Navbar from '@/components/Navbar'
 import { supabase } from '@/lib/supabase'
 import ProductCard from '@/components/ProductCard'
+import WaitlistForm from '@/components/WaitlistForm'
 import { Search, ArrowRight } from 'lucide-react'
 
 export const dynamic = 'force-dynamic'
@@ -130,6 +131,20 @@ export default async function HomePage() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Bar Waitlist */}
+      <section className="py-20 px-4 bg-[#0d0d0d]">
+        <div className="max-w-xl mx-auto text-center">
+          <div className="inline-flex items-center gap-2 bg-[#D4AF37]/10 border border-[#D4AF37]/30 rounded-full px-4 py-2 text-[#D4AF37] text-sm mb-6">
+            🍺 For Bars & Restaurants
+          </div>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Join the Bar Waitlist</h2>
+          <p className="text-gray-400 mb-8">
+            Bar accounts are opening soon. Get early access to discover and connect with brands before anyone else.
+          </p>
+          <WaitlistForm />
         </div>
       </section>
 
