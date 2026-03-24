@@ -42,15 +42,24 @@ body {
 
 @layer components {
   .btn-gold {
-    @apply bg-[#D4AF37] text-black font-semibold px-6 py-3 rounded-lg hover:bg-[#F5CC50] transition-colors duration-200;
+    @apply bg-[#D4AF37] text-black font-semibold px-6 py-3 rounded-lg hover:bg-[#C9A227] transition-colors duration-200;
   }
   .btn-outline-gold {
     @apply border border-[#D4AF37] text-[#D4AF37] font-semibold px-6 py-3 rounded-lg hover:bg-[#D4AF37] hover:text-black transition-colors duration-200;
   }
+  .btn-outline-dark {
+    @apply border border-[#1a1a1a] text-[#1a1a1a] font-semibold px-6 py-3 rounded-lg hover:bg-[#1a1a1a] hover:text-white transition-colors duration-200;
+  }
   .input-dark {
     @apply bg-[#111111] border border-[#333333] text-white rounded-lg px-4 py-3 w-full focus:outline-none focus:border-[#D4AF37] transition-colors placeholder-gray-500;
   }
+  .input-light {
+    @apply bg-white border border-gray-200 text-gray-900 rounded-lg px-4 py-3 w-full focus:outline-none focus:border-[#D4AF37] transition-colors placeholder-gray-400;
+  }
   .card {
     @apply bg-[#111111] border border-[#222222] rounded-xl p-6;
+  }
+  .card-light {
+    @apply bg-white border border-gray-100 rounded-xl p-6 shadow-sm;
   }
 }

@@ -4,26 +4,34 @@ import { useUser, UserButton, SignInButton } from '@clerk/nextjs'
 import { useState } from 'react'
 import { Menu, X, Zap } from 'lucide-react'
 
-export default function Navbar() {
+export default function Navbar({ theme = 'dark' }: { theme?: 'dark' | 'light' }) {
   const { isSignedIn } = useUser()
   const [mobileOpen, setMobileOpen] = useState(false)
 
+  const isLight = theme === 'light'
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0a0a0a]/95 backdrop-blur-md border-b border-[#1a1a1a]">
+    <nav className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b ${
+      isLight
+        ? 'bg-white/95 border-gray-100'
+        : 'bg-[#0a0a0a]/95 border-[#1a1a1a]'
+    }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-lg bg-[#D4AF37] flex items-center justify-center">
               <Zap size={18} className="text-black" fill="black" />
             </div>
-            <span className="text-xl font-bold text-white">floodlio</span>
+            <span className={`text-xl font-bold tracking-tight ${isLight ? 'text-[#0a0a0a]' : 'text-white'}`}>
+              floodlio
+            </span>
           </Link>
 
           <div className="hidden md:flex items-center gap-8">
-            <Link href="/explore" className="text-gray-400 hover:text-white transition-colors text-sm">Explore</Link>
-            <Link href="/pricing" className="text-gray-400 hover:text-white transition-colors text-sm">Pricing</Link>
+            <Link href="/explore" className={`transition-colors text-sm ${isLight ? 'text-gray-500 hover:text-[#0a0a0a]' : 'text-gray-400 hover:text-white'}`}>Explore</Link>
+            <Link href="/pricing" className={`transition-colors text-sm ${isLight ? 'text-gray-500 hover:text-[#0a0a0a]' : 'text-gray-400 hover:text-white'}`}>Pricing</Link>
             {isSignedIn && (
-              <Link href="/dashboard" className="text-gray-400 hover:text-white transition-colors text-sm">Dashboard</Link>
+              <Link href="/dashboard" className={`transition-colors text-sm ${isLight ? 'text-gray-500 hover:text-[#0a0a0a]' : 'text-gray-400 hover:text-white'}`}>Dashboard</Link>
             )}
           </div>
 
@@ -33,7 +41,9 @@ export default function Navbar() {
             ) : (
               <>
                 <SignInButton mode="modal">
-                  <button className="text-gray-400 hover:text-white transition-colors text-sm">Sign In</button>
+                  <button className={`transition-colors text-sm ${isLight ? 'text-gray-500 hover:text-[#0a0a0a]' : 'text-gray-400 hover:text-white'}`}>
+                    Sign In
+                  </button>
                 </SignInButton>
                 <Link href="/sign-up" className="btn-gold text-sm py-2 px-4">
                   Get Started
@@ -42,24 +52,29 @@ export default function Navbar() {
             )}
           </div>
 
-          <button className="md:hidden text-white" onClick={() => setMobileOpen(!mobileOpen)}>
+          <button
+            className={`md:hidden ${isLight ? 'text-[#0a0a0a]' : 'text-white'}`}
+            onClick={() => setMobileOpen(!mobileOpen)}
+          >
             {mobileOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </div>
 
       {mobileOpen && (
-        <div className="md:hidden bg-[#0a0a0a] border-b border-[#1a1a1a] px-4 py-4 space-y-4">
-          <Link href="/explore" className="block text-gray-400 hover:text-white" onClick={() => setMobileOpen(false)}>Explore</Link>
-          <Link href="/pricing" className="block text-gray-400 hover:text-white" onClick={() => setMobileOpen(false)}>Pricing</Link>
+        <div className={`md:hidden border-b px-4 py-4 space-y-4 ${
+          isLight ? 'bg-white border-gray-100' : 'bg-[#0a0a0a] border-[#1a1a1a]'
+        }`}>
+          <Link href="/explore" className={`block text-sm ${isLight ? 'text-gray-500 hover:text-[#0a0a0a]' : 'text-gray-400 hover:text-white'}`} onClick={() => setMobileOpen(false)}>Explore</Link>
+          <Link href="/pricing" className={`block text-sm ${isLight ? 'text-gray-500 hover:text-[#0a0a0a]' : 'text-gray-400 hover:text-white'}`} onClick={() => setMobileOpen(false)}>Pricing</Link>
           {isSignedIn ? (
             <>
-              <Link href="/dashboard" className="block text-gray-400 hover:text-white" onClick={() => setMobileOpen(false)}>Dashboard</Link>
+              <Link href="/dashboard" className={`block text-sm ${isLight ? 'text-gray-500 hover:text-[#0a0a0a]' : 'text-gray-400 hover:text-white'}`} onClick={() => setMobileOpen(false)}>Dashboard</Link>
               <UserButton />
             </>
           ) : (
             <>
-              <Link href="/sign-in" className="block text-gray-400 hover:text-white" onClick={() => setMobileOpen(false)}>Sign In</Link>
+              <Link href="/sign-in" className={`block text-sm ${isLight ? 'text-gray-500 hover:text-[#0a0a0a]' : 'text-gray-400 hover:text-white'}`} onClick={() => setMobileOpen(false)}>Sign In</Link>
               <Link href="/sign-up" className="btn-gold inline-block text-sm py-2 px-4" onClick={() => setMobileOpen(false)}>Get Started</Link>
             </>
           )}

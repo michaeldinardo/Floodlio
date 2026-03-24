@@ -40,8 +40,8 @@ export default function WaitlistForm() {
     return (
       <div className="flex flex-col items-center gap-3 py-4">
         <CheckCircle size={48} className="text-[#D4AF37]" />
-        <h3 className="text-xl font-bold">You&apos;re on the list!</h3>
-        <p className="text-gray-400 text-sm">We&apos;ll reach out when bar accounts open up.</p>
+        <h3 className="text-xl font-bold text-gray-900">You're on the list!</h3>
+        <p className="text-gray-500 text-sm">We'll reach out when bar accounts open up.</p>
       </div>
     )
   }
@@ -54,23 +54,23 @@ export default function WaitlistForm() {
         value={email}
         onChange={e => setEmail(e.target.value)}
         placeholder="Your email address *"
-        className="input-dark"
+        className="input-light"
       />
       <input
         type="text"
         value={businessName}
         onChange={e => setBusinessName(e.target.value)}
         placeholder="Bar / Restaurant name (optional)"
-        className="input-dark"
+        className="input-light"
       />
       <input
         type="text"
         value={city}
         onChange={e => setCity(e.target.value)}
         placeholder="City (optional)"
-        className="input-dark"
+        className="input-light"
       />
-      {error && <p className="text-red-400 text-sm">{error}</p>}
+      {error && <p className="text-red-500 text-sm">{error}</p>}
       <button
         type="submit"
         disabled={loading || !email}
