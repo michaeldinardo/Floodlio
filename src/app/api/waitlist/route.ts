@@ -4,17 +4,42 @@ import { Resend } from 'resend'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
 export async function POST(req: NextRequest) {
+  const ip = req.headers.get('x-forwarded-for')?.split(',')[0] ?? 'unknown'
+
   const { email, business_name, city } = await req.json()
 
-  if (!email) {
-    return NextResponse.json({ error: 'Email is required' }, { status: 400 })
+  if (!email || !emailRegex.test(email)) {
+    return NextResponse.json({ error: 'Valid email is required' }, { status: 400 })
+  }
+
+  if (business_name && business_name.length > 200) {
+    return NextResponse.json({ error: 'Invalid input' }, { status: 400 })
+  }
+
+  if (city && city.length > 100) {
+    return NextResponse.json({ error: 'Invalid input' }, { status: 400 })
+  }
+
+  // Basic rate limit: max 3 signups from same IP in last hour
+  const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000).toISOString()
+  const { count } = await supabaseAdmin
+    .from('waitlist')
+    .select('*', { count: 'exact', head: true })
+    .eq('ip', ip)
+    .gte('created_at', oneHourAgo)
+
+  if ((count ?? 0) >= 3) {
+    return NextResponse.json({ error: 'Too many requests' }, { status: 429 })
   }
 
   const { error: dbError } = await supabaseAdmin.from('waitlist').insert({
     email,
     business_name: business_name || null,
     city: city || null,
+    ip,
   })
 
   if (dbError) {
