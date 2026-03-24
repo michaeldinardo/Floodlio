@@ -40,8 +40,8 @@ export default function WaitlistForm() {
     return (
       <div className="flex flex-col items-center gap-3 py-4">
         <CheckCircle size={48} className="text-[#D4AF37]" />
-        <h3 className="text-xl font-bold text-gray-900">You're on the list!</h3>
-        <p className="text-gray-500 text-sm">We'll reach out when bar accounts open up.</p>
+        <h3 className="text-xl font-bold text-gray-900">You&apos;re on the list!</h3>
+        <p className="text-gray-500 text-sm">We&apos;ll reach out when bar accounts open up.</p>
       </div>
     )
   }

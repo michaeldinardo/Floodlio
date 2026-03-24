@@ -3,7 +3,7 @@ import Navbar from '@/components/Navbar'
 import { supabase } from '@/lib/supabase'
 import ProductCard from '@/components/ProductCard'
 import WaitlistForm from '@/components/WaitlistForm'
-import { Search, ArrowRight, Tag, Inbox, MessageSquare, BookOpen, Bookmark, Send } from 'lucide-react'
+import { Search, ArrowRight, Tag, Inbox, MessageSquare, Bookmark, Send } from 'lucide-react'
 
 export const dynamic = 'force-dynamic'
 
