@@ -4,7 +4,6 @@ import { supabase } from '@/lib/supabase'
 import ProductCard from '@/components/ProductCard'
 import WaitlistForm from '@/components/WaitlistForm'
 import { Search, ArrowRight, Tag, Inbox, MessageSquare, Bookmark, Send } from 'lucide-react'
-import BeerPour from '@/components/BeerPour'
 
 export const dynamic = 'force-dynamic'
 
@@ -44,12 +43,7 @@ export default async function HomePage() {
             Floodlio connects beverage brands with bars and restaurants looking for their next signature product.
           </p>
 
-          {/* Beer pour animation */}
-          <div className="flex justify-center mb-10">
-            <BeerPour />
-          </div>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-14">
+<div className="flex flex-col sm:flex-row gap-4 justify-center mb-14">
             <Link href="/explore" className="btn-gold text-base py-4 px-8 flex items-center gap-2 justify-center">
               Explore Products <ArrowRight size={18} />
             </Link>
